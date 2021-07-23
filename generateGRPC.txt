@@ -1,0 +1,1 @@
+protoc --plugin=protoc-gen-grpc-java=protoc-gen-grpc-java-1.29.0-windows-x86_64.exe --grpc-java_out=src/main/java --proto_path=src/main/proto anello.proto

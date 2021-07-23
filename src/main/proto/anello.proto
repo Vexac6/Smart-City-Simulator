@@ -1,0 +1,53 @@
+syntax = "proto3";
+option java_multiple_files = true;
+option java_package = "sdp.progetto.grpc";
+
+service RingNetwork {
+    rpc Join(JoinData) returns(ACK);
+    rpc Leave(LeaveData) returns(ACK);
+    rpc Update(UpdateData) returns(ACK);
+    rpc Election(ElectionData) returns(ACK);
+    rpc PassToken(TokenData) returns(ACK);
+}
+
+message JoinData {
+    int32 sender = 1;
+    HouseData newcomer = 2;
+}
+
+message LeaveData {
+    int32 sender = 1;
+    int32 next = 2;
+    string emergencyAddress = 3;
+}
+
+message UpdateData {
+    int32 sender = 1;
+    repeated HouseData houses = 2;
+}
+
+message ElectionData {
+    int32 sender = 1;
+    int32 seniority = 2;
+    bool elected = 3;
+}
+
+message TokenData {
+    map <int32, Statistics> stats = 1;
+}
+
+message Statistics {
+    double value = 1;
+    int64 timestamp = 2;
+}
+
+message HouseData {
+    int32 id = 1;
+    string address = 2;
+    int32 port = 3;
+}
+
+message ACK {
+    bool OK = 1;
+    int32 nextNodeID = 2;
+}
